@@ -3,81 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discheap — Paste link. Pay less.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>Discheap — Automatically Find Discounts & Coupons</title>
+  <meta name="description" content="Paste any product link and our AI finds working discount codes, open-box deals, and price drops.">
+  <!-- Tailwind + Custom CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="container">
-    <div class="logo-area">
-      <div class="logo">Discheap</div>
-      <div class="tagline">Paste link. Pay less.</div>
+<body class="font-['Inter'] bg-gray-50">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="text-3xl font-extrabold bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">Discheap</a>
+          <div class="hidden md:flex ml-10 space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium">Home</a>
+            <a href="categories.html" class="text-gray-700 hover:text-emerald-600 font-medium">Categories</a>
+            <a href="product.html" class="text-gray-700 hover:text-emerald-600 font-medium">Discount Tool</a>
+            <a href="about.html" class="text-gray-700 hover:text-emerald-600 font-medium">About</a>
+            <a href="contact.html" class="text-gray-700 hover:text-emerald-600 font-medium">Contact</a>
+          </div>
+        </div>
+        <div>
+          <a href="product.html" class="bg-emerald-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md">
+            <i class="fas fa-tags mr-1"></i> Start Saving
+          </a>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <div class="card">
-      <div class="input-label"><i class="fas fa-link" style="margin-right: 6px;"></i> Product URL</div>
-      <div class="url-input-wrapper">
-        <i class="fas fa-search"></i>
-        <input type="text" id="productUrl" placeholder="https://www.amazon.com/dp/B0EXAMPLE" value="https://www.amazon.com/Apple-AirPods-Pro-Generation-Cancellation/dp/B0D1XD1ZV3">
-        <button id="discountBtn"><i class="fas fa-tags"></i> Discount It</button>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-emerald-50 via-white to-blue-50 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+          Never Pay Full Price Again.
+          <span class="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent"> Discount It.</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-10">
+          Paste any Amazon, eBay, or Walmart link. Our AI finds working coupons, hidden open‑box deals, and price drops in seconds.
+        </p>
+        
+        <!-- Mini Search Bar (Hero) -->
+        <div class="bg-white p-2 rounded-2xl shadow-xl flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto">
+          <div class="flex-1 flex items-center border border-gray-200 rounded-xl px-4 py-3 bg-gray-50">
+            <i class="fas fa-link text-gray-400 mr-2"></i>
+            <input type="text" placeholder="Paste product link here..." class="w-full bg-transparent outline-none text-gray-700" id="heroUrlInput">
+          </div>
+          <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl transition shadow-md" id="heroDiscountBtn">
+            <i class="fas fa-search-dollar mr-1"></i> Find Discount
+          </button>
+        </div>
+        <p class="text-sm text-gray-500 mt-4">Works with Amazon, eBay, Walmart, Best Buy, and more.</p>
       </div>
+    </div>
+  </section>
 
-      <div id="loadingPanel" class="loading-panel hidden">
-        <div class="spinner"></div>
-        <span>AI scanning product & discounts...</span>
-      </div>
-
-      <div id="resultPanel" class="result-card">
-        <div class="product-header">
-          <div class="product-icon"><i class="fas fa-box"></i></div>
-          <div>
-            <div class="product-title" id="productNameDisplay">Loading...</div>
-            <div class="original-price" id="priceDisplay"></div>
+  <!-- Featured Categories -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-4">Shop by Category</h2>
+      <p class="text-gray-600 text-center mb-12">Find the best deals across all your favorite departments</p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="categories.html?cat=electronics" class="group bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition border border-gray-100">
+          <div class="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 text-2xl mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-laptop"></i>
           </div>
-        </div>
-
-        <div class="savings-badge" id="savingsBadge">
-          <i class="fas fa-bolt"></i> <span id="discountPercent">-15%</span> potential savings
-        </div>
-
-        <div class="coupon-box">
-          <div class="coupon-label"><i class="far fa-copy"></i> BEST CODE</div>
-          <div class="coupon-code" id="couponCode">DISCOUNT15</div>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="color: #b0c7db;"><span id="codeSuccessRate">82%</span> success rate</span>
-            <button class="copy-btn" id="copyCodeBtn"><i class="far fa-copy"></i> Copy</button>
-          </div>
-        </div>
-
-        <div style="background: #11212b; border-radius: 18px; padding: 16px; margin: 20px 0;">
-          <div style="display: flex; gap: 12px;">
-            <i class="fas fa-box-open" style="color: #6ee7b7; font-size: 1.5rem;"></i>
-            <div>
-              <div style="font-weight: 600; margin-bottom: 4px;">Amazon Warehouse Deal</div>
-              <div style="color: #b0c7db; font-size: 0.9rem;">Like New · Damaged packaging</div>
-              <div style="font-weight: 700; margin-top: 8px; font-size: 1.3rem;" id="usedPrice">$149.99</div>
-            </div>
-          </div>
-        </div>
-
-        <a href="#" target="_blank" id="amazonLink" class="amazon-btn">
-          <i class="fab fa-amazon"></i> View Deal on Amazon
+          <h3 class="font-semibold text-gray-800">Electronics</h3>
+          <p class="text-sm text-gray-500 mt-1">Laptops, TVs, Audio</p>
         </a>
-        <div class="fine-print">
-          <i class="fas fa-shield-alt"></i> We may earn a commission (at no cost to you)
+        <a href="categories.html?cat=fashion" class="group bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition border border-gray-100">
+          <div class="w-16 h-16 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800">Fashion</h3>
+          <p class="text-sm text-gray-500 mt-1">Clothing, Shoes, Accessories</p>
+        </a>
+        <a href="categories.html?cat=home" class="group bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition border border-gray-100">
+          <div class="w-16 h-16 mx-auto bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 text-2xl mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-couch"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800">Home & Kitchen</h3>
+          <p class="text-sm text-gray-500 mt-1">Furniture, Appliances</p>
+        </a>
+        <a href="categories.html?cat=beauty" class="group bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition border border-gray-100">
+          <div class="w-16 h-16 mx-auto bg-pink-100 rounded-2xl flex items-center justify-center text-pink-600 text-2xl mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-spa"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800">Beauty</h3>
+          <p class="text-sm text-gray-500 mt-1">Skincare, Makeup</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">How Discheap Works</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-white rounded-full shadow-md flex items-center justify-center text-emerald-600 text-2xl mb-4 border border-emerald-100">
+            <i class="fas fa-paste"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">1. Paste Link</h3>
+          <p class="text-gray-600">Copy any product URL from your favorite store and paste it into our tool.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-white rounded-full shadow-md flex items-center justify-center text-emerald-600 text-2xl mb-4 border border-emerald-100">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">2. AI Scans</h3>
+          <p class="text-gray-600">Our AI scans millions of coupons, open-box listings, and price histories instantly.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-white rounded-full shadow-md flex items-center justify-center text-emerald-600 text-2xl mb-4 border border-emerald-100">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">3. Save Money</h3>
+          <p class="text-gray-600">Apply the best code or buy the open-box deal. You save up to 40% instantly.</p>
         </div>
       </div>
-
-      <div id="errorPanel" class="error-message hidden"></div>
     </div>
-    <div style="margin-top: 20px; font-size: 0.8rem; color: #5f7f99; text-align: center;">
-      ⚡ Paste any Amazon link — AI finds discount codes & open‑box steals.
-    </div>
-  </div>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- Featured Deals (Dynamic via JS) -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Today's Hottest Deals</h2>
+        <a href="categories.html" class="text-emerald-600 hover:text-emerald-800 font-medium">View all <i class="fas fa-arrow-right ml-1"></i></a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8" id="featuredDealsContainer">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-16 bg-gradient-to-r from-emerald-600 to-blue-600 text-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Never Miss a Deal</h2>
+      <p class="text-emerald-100 mb-8">Join 50,000+ savvy shoppers getting the best discounts straight to their inbox.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" placeholder="Your email address" class="flex-1 px-5 py-3 rounded-xl text-gray-800 outline-none">
+        <button class="bg-white text-emerald-700 font-bold px-8 py-3 rounded-xl hover:bg-gray-100 transition">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-white text-xl font-bold mb-4">Discheap</h3>
+          <p class="text-sm">Automatically find discounts, coupons, and open-box deals on anything you shop online.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+            <li><a href="categories.html" class="hover:text-white transition">Categories</a></li>
+            <li><a href="product.html" class="hover:text-white transition">Discount Tool</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+            <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Follow Us</h4>
+          <div class="flex space-x-4 text-xl">
+            <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-sm text-center">
+        <p>&copy; 2025 Discheap. All rights reserved. We may earn commissions on purchases.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
