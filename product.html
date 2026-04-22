@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount Tool — Discheap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-['Inter'] bg-gray-50">
+
+  <!-- Navigation (same as index) -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="text-3xl font-extrabold bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">Discheap</a>
+          <div class="hidden md:flex ml-10 space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium">Home</a>
+            <a href="categories.html" class="text-gray-700 hover:text-emerald-600 font-medium">Categories</a>
+            <a href="product.html" class="text-emerald-600 font-medium border-b-2 border-emerald-600 pb-1">Discount Tool</a>
+            <a href="about.html" class="text-gray-700 hover:text-emerald-600 font-medium">About</a>
+            <a href="contact.html" class="text-gray-700 hover:text-emerald-600 font-medium">Contact</a>
+          </div>
+        </div>
+        <div>
+          <a href="product.html" class="bg-emerald-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md">
+            <i class="fas fa-tags mr-1"></i> Start Saving
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Tool Section -->
+  <section class="py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">AI Discount Finder</h1>
+        <p class="text-gray-600">Paste any product link — we'll find working coupons, open‑box deals, and price drops.</p>
+      </div>
+
+      <!-- Input Card -->
+      <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <div class="flex-1 flex items-center border border-gray-300 rounded-xl px-4 py-3 bg-gray-50">
+            <i class="fas fa-link text-gray-400 mr-3"></i>
+            <input type="text" id="productUrl" placeholder="https://www.amazon.com/dp/B0EXAMPLE" class="w-full bg-transparent outline-none text-gray-700" value="https://www.amazon.com/Apple-AirPods-Pro-Generation-Cancellation/dp/B0D1XD1ZV3">
+          </div>
+          <button id="discountBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl transition shadow-md flex items-center justify-center">
+            <i class="fas fa-search-dollar mr-2"></i> Find Discount
+          </button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingPanel" class="hidden flex items-center justify-center py-8">
+          <div class="flex items-center space-x-3">
+            <div class="w-6 h-6 border-3 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+            <span class="text-gray-600">AI scanning product & discounts...</span>
+          </div>
+        </div>
+
+        <!-- Result Panel -->
+        <div id="resultPanel" class="hidden mt-6">
+          <div class="border-t border-gray-200 pt-6">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 text-2xl">
+                <i class="fas fa-box"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-800" id="productNameDisplay">Product Name</h2>
+                <p class="text-gray-500" id="priceDisplay">Original price: $129.99</p>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 mb-5">
+              <div class="flex items-center gap-2 text-emerald-800 font-semibold mb-2">
+                <i class="fas fa-bolt"></i> <span id="discountPercent">-15%</span> Potential Savings
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-emerald-100">
+                <p class="text-sm text-gray-500 mb-1">BEST COUPON CODE</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-3xl font-mono font-bold tracking-wider text-gray-800" id="couponCode">SAVE15NOW</span>
+                  <button id="copyCodeBtn" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg text-sm font-medium"><i class="far fa-copy mr-1"></i> Copy</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-2"><span id="codeSuccessRate">82%</span> success rate</p>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-5">
+              <div class="flex gap-3">
+                <i class="fas fa-box-open text-blue-600 text-xl"></i>
+                <div>
+                  <h3 class="font-semibold text-gray-800">Amazon Warehouse Deal</h3>
+                  <p class="text-sm text-gray-500">Like New · Damaged packaging</p>
+                  <p class="text-2xl font-bold text-gray-800 mt-1" id="usedPrice">$102.99</p>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" target="_blank" id="amazonLink" class="block w-full bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-center font-bold py-4 rounded-xl hover:from-emerald-700 transition shadow-lg">
+              <i class="fab fa-amazon mr-2"></i> View Deal on Amazon
+            </a>
+            <p class="text-xs text-gray-400 text-center mt-4">We may earn a commission at no extra cost to you.</p>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div id="errorPanel" class="hidden mt-6 bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl"></div>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-6 mt-10 text-gray-500 text-sm">
+        <div class="flex items-center"><i class="fas fa-shield-alt text-emerald-600 mr-2"></i> Secure & Private</div>
+        <div class="flex items-center"><i class="fas fa-bolt text-emerald-600 mr-2"></i> Instant Results</div>
+        <div class="flex items-center"><i class="fas fa-check-circle text-emerald-600 mr-2"></i> 500K+ Deals Found</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (same) -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div><h3 class="text-white text-xl font-bold mb-4">Discheap</h3><p class="text-sm">Automatically find discounts.</p></div>
+        <div><h4 class="text-white font-semibold mb-4">Quick Links</h4><ul class="space-y-2 text-sm"><li><a href="index.html" class="hover:text-white">Home</a></li><li><a href="categories.html" class="hover:text-white">Categories</a></li><li><a href="product.html" class="hover:text-white">Discount Tool</a></li></ul></div>
+        <div><h4 class="text-white font-semibold mb-4">Company</h4><ul class="space-y-2 text-sm"><li><a href="about.html" class="hover:text-white">About</a></li><li><a href="contact.html" class="hover:text-white">Contact</a></li></ul></div>
+        <div><h4 class="text-white font-semibold mb-4">Follow</h4><div class="flex space-x-4 text-xl"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-sm text-center"><p>&copy; 2025 Discheap.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
