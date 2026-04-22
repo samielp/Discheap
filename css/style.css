@@ -1,0 +1,18 @@
+/* Custom styles beyond Tailwind */
+body {
+  font-family: 'Inter', sans-serif;
+}
+.border-3 {
+  border-width: 3px;
+}
+/* Smooth transitions */
+a, button {
+  transition: all 0.2s ease;
+}
+/* Loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
